@@ -39,6 +39,13 @@
     
                 <!-- Right Side - Logged in user dropdown or Guest links -->
                 <div class="hidden sm:flex sm:items-center sm:ms-6 space-x-3">
+                    <!-- Language Switcher -->
+                    <a href="{{ route('locale.switch', app()->getLocale() === 'ru' ? 'en' : 'ru') }}"
+                       class="inline-flex items-center justify-center p-2.5 rounded-xl text-text-secondary hover:text-text-primary hover:bg-bg-tertiary dark:hover:bg-dark-bg-hover focus:outline-none transition-all duration-200"
+                       title="Switch language">
+                        <span class="text-sm font-semibold uppercase">{{ strtoupper(app()->getLocale()) }}</span>
+                    </a>
+
                     <!-- Dark Mode Toggle (always visible) -->
                     <button 
                         @click="darkMode = !darkMode; if(darkMode){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark')}; localStorage.setItem('theme', darkMode ? 'dark' : 'light')"
@@ -96,6 +103,11 @@
                                             {{ __('Logout') }}
                                         </x-dropdown-link>
                                     </form>
+
+                                    <!-- Language Switcher -->
+                                    <x-dropdown-link :href="route('locale.switch', app()->getLocale() === 'ru' ? 'en' : 'ru')">
+                                        {{ app()->getLocale() === 'ru' ? 'English' : 'Русский' }}
+                                    </x-dropdown-link>
                                 </div>
                             </div>
                         </div>
@@ -166,6 +178,9 @@
                     <div class="mt-3 space-y-1">
                         <x-responsive-nav-link :href="route('profile.edit')">
                             {{ __('Profile') }}
+                        </x-responsive-nav-link>
+                        <x-responsive-nav-link :href="route('locale.switch', app()->getLocale() === 'ru' ? 'en' : 'ru')">
+                            {{ app()->getLocale() === 'ru' ? 'English' : 'Русский' }}
                         </x-responsive-nav-link>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

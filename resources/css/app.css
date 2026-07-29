@@ -1,88 +1,91 @@
 @import 'tailwindcss';
-
-@theme {
-    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
     
-    /* Luna Brand Colors */
-    --color-luna-primary: #E0427A;
-    --color-luna-primary-hover: #C93568;
-    --color-luna-primary-light: #FFF0F5;
-    --color-luna-accent: #FF6B9D;
+    @theme {
+        --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        
+        /* Luna Brand Colors */
+        --color-luna-primary: #E0427A;
+        --color-luna-primary-hover: #C93568;
+        --color-luna-primary-light: #FFF0F5;
+        --color-luna-accent: #FF6B9D;
+        
+        /* Light Theme */
+        --color-bg-primary: #FFFFFF;
+        --color-bg-secondary: #F8F9FA;
+        --color-bg-tertiary: #F0F1F3;
+        --color-bg-card: #FFFFFF;
+        --color-text-primary: #1A1A2E;
+        --color-text-secondary: #6C757D;
+        --color-text-muted: #ADB5BD;
+        --color-border: #E9ECEF;
+        
+        /* Dark Theme */
+        --color-dark-bg: #0D0D1A;
+        --color-dark-bg-card: #161625;
+        --color-dark-bg-hover: #1E1E32;
+        --color-dark-text: #E8E8F0;
+        --color-dark-text-primary: #E8E8F0;
+        --color-dark-text-secondary: #B0B0C0;
+        --color-dark-text-muted: #9494A8;
+        --color-dark-border: #2A2A40;
+        --color-dark-border-hover: #3A3A55;
+    }
     
-    /* Light Theme */
-    --color-bg-primary: #FFFFFF;
-    --color-bg-secondary: #F8F9FA;
-    --color-bg-tertiary: #F0F1F3;
-    --color-text-primary: #1A1A2E;
-    --color-text-secondary: #6C757D;
-    --color-text-muted: #ADB5BD;
-    --color-border: #E9ECEF;
+    @custom-variant dark (&:where(.dark, .dark *));
     
-    /* Dark Theme */
-    --color-dark-bg: #0D0D1A;
-    --color-dark-bg-card: #161625;
-    --color-dark-bg-hover: #1E1E32;
-    --color-dark-text: #E8E8F0;
-    --color-dark-text-muted: #9494A8;
-    --color-dark-border: #2A2A40;
-    --color-dark-border-hover: #3A3A55;
-}
-
-@custom-variant dark (&:where(.dark, .dark *));
-
-/* Base styles */
-body {
-    font-family: 'Inter', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-    width: 6px;
-}
-
-::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.dark ::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: var(--color-text-muted);
-    border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background-color: var(--color-text-secondary);
-}
-
-/* Animations */
-@keyframes fade-in {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes slide-down {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-fade-in {
-    animation: fade-in 0.5s ease-out forwards;
-}
-
-.animate-slide-down {
-    animation: slide-down 0.3s ease-out forwards;
-}
-
-/* Dropdown menu animation */
-.dropdown-menu {
-    animation: slide-down 0.2s ease-out forwards;
-}
+    /* Base styles */
+    body {
+        font-family: 'Inter', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-smoothing: grayscale;
+    }
+    
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    .dark ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background-color: var(--color-text-muted);
+        border-radius: 3px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: var(--color-text-secondary);
+    }
+    
+    /* Animations */
+    @keyframes fade-in {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes slide-down {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .animate-fade-in {
+        animation: fade-in 0.5s ease-out forwards;
+    }
+    
+    .animate-slide-down {
+        animation: slide-down 0.3s ease-out forwards;
+    }
+    
+    /* Dropdown menu animation */
+    .dropdown-menu {
+        animation: slide-down 0.2s ease-out forwards;
+    }

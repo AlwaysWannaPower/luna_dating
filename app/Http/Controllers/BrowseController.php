@@ -3,33 +3,93 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class BrowseController extends Controller
 {
+    /**
+     * Swipe page view - returns the empty container for Alpine.js to populate.
+     */
     public function index(Request $request): View
     {
-        $currentUser = auth()->user();
+        return view('browse.index');
+    }
 
+    /**
+     * Get the next swipe card via AJAX.
+     */
+    public function nextCard(Request $request): JsonResponse
+    {
+        $currentUser = $request->user();
+
+        // Build query based on user's profile preferences
         $query = User::query()
-            ->where('id', '!=', $currentUser->id)
-            ->when($request->gender, fn ($q) => $q->where('gender', $request->gender))
-            ->when($request->city, fn ($q) => $q->where('city', 'ilike', "%{$request->city}%"))
-            ->when($request->min_age, fn ($q) => $q->whereRaw('extract(year from age(birth_date)) >= ?', $request->min_age))
-            ->when($request->max_age, fn ($q) => $q->whereRaw('extract(year from age(birth_date)) <= ?', $request->max_age))
-            ->when($request->search, fn ($q) => $q->where(fn ($q2) => $q2->where('name', 'ilike', "%{$request->search}%")->orWhere('city', 'ilike', "%{$request->search}%")));
+            ->where('users.id', '!=', $currentUser->id)
+            // Exclude users already liked by current user
+            ->whereNotIn('users.id', function ($q) use ($currentUser) {
+                $q->select('to_user_id')
+                    ->from('likes')
+                    ->where('from_user_id', $currentUser->id);
+            })
+            // Exclude users that were skipped
+            ->whereNotIn('users.id', function ($q) use ($currentUser) {
+                $q->select('to_user_id')
+                    ->from('skips')
+                    ->where('from_user_id', $currentUser->id);
+            })
+            // Filter by gender preference
+            ->when($currentUser->looking_for && $currentUser->looking_for !== 'both', function ($q) use ($currentUser) {
+                $q->where('gender', $currentUser->looking_for);
+            })
+            // Age range filter from profile preferences
+            ->when($currentUser->age_min, function ($q) use ($currentUser) {
+                $q->whereRaw('extract(year from age(users.birth_date)) >= ?', [$currentUser->age_min]);
+            })
+            ->when($currentUser->age_max, function ($q) use ($currentUser) {
+                $q->whereRaw('extract(year from age(users.birth_date)) <= ?', [$currentUser->age_max]);
+            });
 
-        $likedUserIds = $currentUser->likesSent()->pluck('to_user_id')->toArray();
+        // Optional city filter
+        if ($request->filled('city')) {
+            $query->where('city', 'ilike', "%{$request->city}%");
+        }
 
-        $users = $query->paginate(12)->withQueryString();
-        $filters = $request->except('page');
+        $card = $query->inRandomOrder()->first();
 
-        // Add liked flag to each user without N+1 query
-        $users->getCollection()->each(function ($user) use ($likedUserIds) {
-            $user->is_liked = in_array($user->id, $likedUserIds);
-        });
+        if (!$card) {
+            return response()->json([
+                'data' => null,
+                'hasMore' => false,
+            ]);
+        }
 
-        return view('browse.index', compact('users', 'filters'));
+        return response()->json([
+            'data' => [
+                'id' => $card->id,
+                'name' => $card->name,
+                'age' => $card->age,
+                'city' => $card->city,
+                'bio' => $card->bio,
+                'avatar' => $card->avatar ? asset('storage/' . $card->avatar) : null,
+            ],
+            'hasMore' => true,
+        ]);
+    }
+
+    /**
+     * Save a skip action.
+     */
+    public function storeSkip(Request $request): JsonResponse
+    {
+        $currentUser = $request->user();
+        
+        \App\Models\Skip::create([
+            'from_user_id' => $currentUser->id,
+            'to_user_id' => $request->input('to_user_id'),
+        ]);
+
+        return response()->json(['success' => true]);
     }
 }
