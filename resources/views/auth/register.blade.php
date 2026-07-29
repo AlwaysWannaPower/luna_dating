@@ -1,22 +1,24 @@
 <x-guest-layout>
-    <!-- Logo -->
-    <div class="flex justify-center mb-6">
-        <a href="/" class="flex items-center gap-2 group">
-            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-luna-primary to-luna-accent flex items-center justify-center shadow-lg shadow-luna-primary/30 group-hover:shadow-luna-primary/50 transition-all duration-300 group-hover:scale-105">
-                <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
+    <div class="flex min-h-[calc(100vh-12rem)] flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="sm:mx-auto sm:w-full sm:max-w-md">
+            <!-- Logo -->
+            <div class="flex justify-center mb-6">
+                <a href="/" class="flex items-center gap-2 group">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-luna-primary to-luna-accent flex items-center justify-center shadow-lg shadow-luna-primary/30 group-hover:shadow-luna-primary/50 transition-all duration-300 group-hover:scale-105">
+                        <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg>
+                    </div>
+                    <span class="text-3xl font-bold bg-gradient-to-r from-luna-primary to-luna-accent bg-clip-text text-transparent hidden sm:block">Luna</span>
+                </a>
             </div>
-            <span class="text-3xl font-bold bg-gradient-to-r from-luna-primary to-luna-accent bg-clip-text text-transparent hidden sm:block">Luna</span>
-        </a>
-    </div>
 
-    <div class="mb-6 text-center">
-        <h2 class="text-2xl font-bold text-text-primary dark:text-dark-text">{{ __('Создайте аккаунт') }}</h2>
-        <p class="text-text-secondary dark:text-dark-text-muted mt-1">{{ __('Начните свою историю сегодня') }}</p>
-    </div>
+            <div class="mb-6 text-center">
+                <h2 class="text-2xl font-bold text-text-primary dark:text-dark-text">{{ __('Создайте аккаунт') }}</h2>
+                <p class="text-text-secondary dark:text-dark-text-muted mt-1">{{ __('Начните свою историю сегодня') }}</p>
+            </div>
 
-    <form method="POST" action="{{ route('register') }}" class="space-y-5">
+            <form method="POST" action="{{ route('register') }}" class="space-y-5">
         @csrf
 
         <!-- Name -->
@@ -104,15 +106,17 @@
 
         <!-- Submit Button -->
         <x-primary-button class="w-full py-3 text-base">
-            {{ __('Зарегистрироваться') }}
-        </x-primary-button>
-    </form>
+                {{ __('Зарегистрироваться') }}
+            </x-primary-button>
+        </form>
 
-    <!-- Login Link -->
-    <p class="mt-6 text-center text-sm text-text-secondary dark:text-dark-text-muted">
-        {{ __('Уже есть аккаунт?') }}
-        <a href="{{ route('login') }}" class="font-semibold text-luna-primary hover:text-luna-primary-hover hover:underline transition-colors duration-200">
-            {{ __('Войти') }}
-        </a>
-    </p>
+        <!-- Login Link -->
+        <p class="mt-6 text-center text-sm text-text-secondary dark:text-dark-text-muted">
+            {{ __('Уже есть аккаунт?') }}
+            <a href="{{ route('login') }}" class="font-semibold text-luna-primary hover:text-luna-primary-hover hover:underline transition-colors duration-200">
+                {{ __('Войти') }}
+            </a>
+        </p>
+        </div>
+    </div>
 </x-guest-layout>
