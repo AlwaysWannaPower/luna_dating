@@ -31,9 +31,6 @@ Route::delete('/likes/{like}', [LikeController::class, 'destroy'])
     ->middleware(['auth', 'verified'])
     ->name('likes.destroy');
 
-Route::get('/my-profile/{id}', function ($id) {
-    return view('my-profile');
-})->middleware(['auth', 'verified'])->name('my-profile');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

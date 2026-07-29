@@ -37,9 +37,9 @@
                     @endif
                 </div>
     
-                <!-- Right Side - Dark Mode Toggle & User Dropdown -->
+                <!-- Right Side - Logged in user dropdown or Guest links -->
                 <div class="hidden sm:flex sm:items-center sm:ms-6 space-x-3">
-                    <!-- Dark Mode Toggle -->
+                    <!-- Dark Mode Toggle (always visible) -->
                     <button 
                         @click="darkMode = !darkMode; if(darkMode){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark')}; localStorage.setItem('theme', darkMode ? 'dark' : 'light')"
                         class="inline-flex items-center justify-center p-2.5 rounded-xl text-text-secondary hover:text-text-primary hover:bg-bg-tertiary dark:hover:bg-dark-bg-hover focus:outline-none transition-all duration-200"
@@ -55,55 +55,63 @@
                         </svg>
                     </button>
     
-                    <!-- User Dropdown -->
-                    <div class="relative ms-3">
-                        <div x-data="{ open: false }" @click.outside="open = false">
-                            <button @click="open = !open" class="inline-flex items-center rounded-xl hover:bg-bg-tertiary dark:hover:bg-dark-bg-hover focus:outline-none transition-colors duration-200">
-                                <div class="h-8 w-8 rounded-full bg-gradient-to-br from-luna-primary to-luna-accent flex items-center justify-center text-white font-medium text-sm shadow-md">
-                                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
-                                </div>
-                                <svg class="ms-2 h-4 w-4 text-text-secondary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </button>
-    
-                            <div x-show="open" 
-                                 x-transition:enter="transition ease-out duration-200"
-                                 x-transition:enter-start="opacity-0 scale-95"
-                                 x-transition:enter-end="opacity-100 scale-100"
-                                 x-transition:leave="transition ease-in duration-75"
-                                 x-transition:leave-start="opacity-100 scale-100"
-                                 x-transition:leave-end="opacity-0 scale-95"
-                                 class="absolute right-0 mt-2 w-56 rounded-2xl bg-bg-primary dark:bg-dark-bg-card border border-border dark:border-dark-border shadow-xl py-1 z-50 dropdown-menu"
-                            >
-                                <!-- User Info -->
-                                <div class="px-4 py-3 border-b border-border dark:border-dark-border">
-                                    <p class="text-sm font-semibold text-text-primary dark:text-dark-text">{{ Auth::user()->name }}</p>
-                                    <p class="text-xs text-text-secondary dark:text-dark-text-muted truncate">{{ Auth::user()->email }}</p>
-                                </div>
-    
-                                <!-- Profile Link -->
-                                <x-dropdown-link :href="route('profile.edit')">
-                                    {{ __('Profile') }}
-                                </x-dropdown-link>
-    
-                                @if(Auth::check())
-                                <x-dropdown-link :href="route('my-profile')">
-                                    {{ __('My Profile') }}
-                                </x-dropdown-link>
-                                @endif
-    
-                                <!-- Logout -->
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <x-dropdown-link :href="route('logout')"
-                                            onclick="event.preventDefault(); this.closest('form').submit();">
-                                        {{ __('Logout') }}
+                    @if(Auth::check())
+                        <!-- User Dropdown (logged in) -->
+                        <div class="relative ms-3">
+                            <div x-data="{ open: false }" @click.outside="open = false">
+                                <button @click="open = !open" class="inline-flex items-center rounded-xl hover:bg-bg-tertiary dark:hover:bg-dark-bg-hover focus:outline-none transition-colors duration-200">
+                                    <div class="h-8 w-8 rounded-full bg-gradient-to-br from-luna-primary to-luna-accent flex items-center justify-center text-white font-medium text-sm shadow-md">
+                                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                                    </div>
+                                    <svg class="ms-2 h-4 w-4 text-text-secondary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+        
+                                <div x-show="open" 
+                                     x-transition:enter="transition ease-out duration-200"
+                                     x-transition:enter-start="opacity-0 scale-95"
+                                     x-transition:enter-end="opacity-100 scale-100"
+                                     x-transition:leave="transition ease-in duration-75"
+                                     x-transition:leave-start="opacity-100 scale-100"
+                                     x-transition:leave-end="opacity-0 scale-95"
+                                     class="absolute right-0 mt-2 w-56 rounded-2xl bg-bg-primary dark:bg-dark-bg-card border border-border dark:border-dark-border shadow-xl py-1 z-50 dropdown-menu"
+                                >
+                                    <!-- User Info -->
+                                    <div class="px-4 py-3 border-b border-border dark:border-dark-border">
+                                        <p class="text-sm font-semibold text-text-primary dark:text-dark-text">{{ Auth::user()->name }}</p>
+                                        <p class="text-xs text-text-secondary dark:text-dark-text-muted truncate">{{ Auth::user()->email }}</p>
+                                    </div>
+        
+                                    <!-- Profile Link -->
+                                    <x-dropdown-link :href="route('profile.edit')">
+                                        {{ __('Profile') }}
                                     </x-dropdown-link>
-                                </form>
+        
+                                    <!-- Logout -->
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <x-dropdown-link :href="route('logout')"
+                                                onclick="event.preventDefault(); this.closest('form').submit();">
+                                            {{ __('Logout') }}
+                                        </x-dropdown-link>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @else
+                        <!-- Guest Links (not logged in) -->
+                        <div class="flex items-center gap-2">
+                            <a href="{{ route('login') }}" 
+                               class="px-4 py-2 rounded-xl text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-bg-tertiary dark:hover:bg-dark-bg-hover transition-colors">
+                                Log in
+                            </a>
+                            <a href="{{ route('register') }}" 
+                               class="px-4 py-2 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-luna-primary to-luna-accent hover:shadow-lg hover:shadow-luna-primary/20 transition-all">
+                                Sign up
+                            </a>
+                        </div>
+                    @endif
                 </div>
     
                 <!-- Mobile menu button -->
@@ -131,48 +139,55 @@
             </div>
         </div>
     
-        <!-- Responsive Navigation Menu -->
+        <!-- Responsive Navigation Menu (mobile) -->
         <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-bg-primary dark:bg-dark-bg-card border-t border-border dark:border-dark-border">
-            <div class="pt-2 pb-3 space-y-1">
-                @if(Auth::check())
-                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                    {{ __('Matches') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('discover')" :active="request()->routeIs('discover')">
-                    {{ __('Discover') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('likes.index')" :active="request()->routeIs('likes.index')">
-                    {{ __('My Likes') }}
-                </x-responsive-nav-link>
-                @endif
-            </div>
-    
-            <!-- Responsive Settings Options -->
-            <div class="pt-4 pb-4 border-t border-border dark:border-dark-border">
-                <div class="px-4">
-                    <div class="font-medium text-base text-text-primary dark:text-dark-text">{{ Auth::user()->name }}</div>
-                    <div class="font-medium text-sm text-text-secondary dark:text-dark-text-muted">{{ Auth::user()->email }}</div>
+            
+            @if(Auth::check())
+                <!-- Logged in mobile nav -->
+                <div class="pt-2 pb-3 space-y-1">
+                    <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Matches') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('discover')" :active="request()->routeIs('discover')">
+                        {{ __('Discover') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('likes.index')" :active="request()->routeIs('likes.index')">
+                        {{ __('My Likes') }}
+                    </x-responsive-nav-link>
                 </div>
     
-                <div class="mt-3 space-y-1">
-                    <x-responsive-nav-link :href="route('profile.edit')">
-                        {{ __('Profile') }}
-                    </x-responsive-nav-link>
+                <!-- Responsive Settings Options (mobile) -->
+                <div class="pt-4 pb-4 border-t border-border dark:border-dark-border">
+                    <div class="px-4">
+                        <div class="font-medium text-base text-text-primary dark:text-dark-text">{{ Auth::user()->name }}</div>
+                        <div class="font-medium text-sm text-text-secondary dark:text-dark-text-muted">{{ Auth::user()->email }}</div>
+                    </div>
     
-                    @if(Auth::check())
-                    <x-responsive-nav-link :href="route('my-profile')">
-                        {{ __('My Profile') }}
-                    </x-responsive-nav-link>
-                    @endif
-    
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <x-responsive-nav-link :href="route('logout')"
-                                onclick="event.preventDefault(); this.closest('form').submit();">
-                            {{ __('Logout') }}
+                    <div class="mt-3 space-y-1">
+                        <x-responsive-nav-link :href="route('profile.edit')">
+                            {{ __('Profile') }}
                         </x-responsive-nav-link>
-                    </form>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <x-responsive-nav-link :href="route('logout')"
+                                    onclick="event.preventDefault(); this.closest('form').submit();">
+                                {{ __('Logout') }}
+                            </x-responsive-nav-link>
+                        </form>
+                    </div>
                 </div>
-            </div>
+            @else
+                <!-- Guest mobile nav -->
+                <div class="pt-4 pb-4 space-y-2 px-4">
+                    <a href="{{ route('login') }}" 
+                       class="block w-full text-center px-4 py-3 rounded-xl text-sm font-medium text-text-secondary border border-border dark:border-dark-border hover:bg-bg-tertiary dark:hover:bg-dark-bg-hover transition-colors">
+                        Log in
+                    </a>
+                    <a href="{{ route('register') }}" 
+                       class="block w-full text-center px-4 py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-luna-primary to-luna-accent hover:shadow-lg transition-all">
+                        Sign up
+                    </a>
+                </div>
+            @endif
         </div>
     </nav>
