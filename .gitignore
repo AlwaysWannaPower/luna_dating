@@ -27,3 +27,4 @@ Homestead.yaml
 Thumbs.db
 # Local Pi runtime state
 .atl/
+public/storage/avatars

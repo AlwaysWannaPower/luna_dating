@@ -7,13 +7,13 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
             </div>
-            <span class="text-3xl font-bold bg-gradient-to-r from-luna-primary to-luna-accent bg-clip-text text-transparent hidden sm:block">Luna</span>
+            <span class="text-3xl font-bold bg-gradient-to-r from-luna-primary to-luna-accent bg-clip-text text-transparent hidden sm:block">{{ config('app.name', 'Luna') }}</span>
         </a>
     </div>
 
     <div class="mb-6 text-center">
         <h2 class="text-2xl font-bold text-text-primary dark:text-dark-text">{{ __('Сброс пароля') }}</h2>
-        <p class="text-text-secondary dark:text-dark-text-muted mt-1">{{ __('Установите новый пароль') }}</p>
+        <p class="text-sm text-text-secondary dark:text-dark-text-muted mt-1">{{ __('Установите новый пароль') }}</p>
     </div>
 
     <form method="POST" action="{{ route('password.store') }}" class="space-y-5">
@@ -31,14 +31,14 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                 </div>
-                <x-text-input id="email" 
-                              class="block w-full pl-10 pr-4 py-3 rounded-xl border-border dark:border-dark-border bg-bg-primary dark:bg-dark-bg-card focus:ring-luna-primary focus:border-luna-primary transition-colors duration-200" 
-                              type="email" 
-                              name="email" 
-                              :value="old('email', $request->email)" 
-                              required 
-                              autofocus 
-                              autocomplete="username" 
+                <x-text-input id="email"
+                              class="block w-full pl-10 pr-4 py-3 rounded-xl border-border dark:border-dark-border bg-bg-primary dark:bg-dark-bg-card focus:ring-luna-primary focus:border-luna-primary transition-colors duration-200"
+                              type="email"
+                              name="email"
+                              :value="old('email', $request->email)"
+                              required
+                              autofocus
+                              autocomplete="username"
                               placeholder="you@example.com" />
             </div>
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
@@ -53,7 +53,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
                 </div>
-                <x-text-input id="password" 
+                <x-text-input id="password"
                               class="block w-full pl-10 pr-4 py-3 rounded-xl border-border dark:border-dark-border bg-bg-primary dark:bg-dark-bg-card focus:ring-luna-primary focus:border-luna-primary transition-colors duration-200"
                               type="password"
                               name="password"
@@ -73,7 +73,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </div>
-                <x-text-input id="password_confirmation" 
+                <x-text-input id="password_confirmation"
                               class="block w-full pl-10 pr-4 py-3 rounded-xl border-border dark:border-dark-border bg-bg-primary dark:bg-dark-bg-card focus:ring-luna-primary focus:border-luna-primary transition-colors duration-200"
                               type="password"
                               name="password_confirmation"

@@ -27,7 +27,7 @@
                                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                                 @else
                                     <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-luna-primary/10 to-luna-accent/10 dark:from-luna-primary/20 dark:to-luna-accent/20">
-                                        <span class="text-5xl font-bold text-luna-primary/30">{{ strtoupper(substr($user->name, 0, 1)) }}</span>
+                                        <span class="text-5xl font-bold text-luna-primary/60">{{ strtoupper(substr($user->name, 0, 1)) }}</span>
                                     </div>
                                 @endif
 

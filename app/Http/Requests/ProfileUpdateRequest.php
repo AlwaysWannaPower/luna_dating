@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Models\User;
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\File;
@@ -29,7 +28,7 @@ class ProfileUpdateRequest extends FormRequest
             'birth_date' => [
                 'nullable',
                 'date',
-                'before:' . now()->subYears(16)->format('Y-m-d'),
+                'before:'.now()->subYears(16)->format('Y-m-d'),
             ],
 
             'gender' => [
@@ -41,6 +40,9 @@ class ProfileUpdateRequest extends FormRequest
                 'nullable',
                 Rule::in(['male', 'female', 'both']),
             ],
+
+            'age_min' => ['nullable', 'integer', 'min:18', 'max:99'],
+            'age_max' => ['nullable', 'integer', 'min:18', 'max:99', 'gte:age_min'],
 
             'city' => ['nullable', 'string', 'max:100'],
 
