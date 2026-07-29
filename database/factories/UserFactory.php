@@ -1,5 +1,5 @@
 <?php
-
+    
 namespace Database\Factories;
 
 use App\Models\User;
@@ -30,11 +30,17 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'avatar' => null,
+            'birth_date' => fake()->date('Y-m-d', '-18 years'),
+            'gender' => fake()->randomElement(['male', 'female']),
+            'looking_for' => fake()->randomElement(['male', 'female', 'both']),
+            'city' => fake()->city(),
+            'bio' => fake()->paragraph(),
         ];
     }
 
     /**
-     * Indicate that the model's email address should be unverified.
+     * Indicate that the model's email address is unverified.
      */
     public function unverified(): static
     {
