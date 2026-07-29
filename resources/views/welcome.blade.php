@@ -1,23 +1,7 @@
-@extends('layouts.guest')
-
-@section('title', __('Знакомства'))
-
-@section('content')
+<x-guest-layout>
 <div class="flex flex-col items-center justify-center px-4 py-12 sm:py-20">
     <!-- Hero Section -->
     <div class="max-w-3xl mx-auto text-center mb-12 animate-fade-in">
-        <!-- Decorative floating hearts -->
-        <div class="absolute top-20 left-10 opacity-10 dark:opacity-5">
-            <svg class="w-8 h-8 text-luna-primary animate-pulse" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-            </svg>
-        </div>
-        <div class="absolute top-40 right-16 opacity-10 dark:opacity-5">
-            <svg class="w-6 h-6 text-luna-accent animate-pulse" style="animation-delay: 1s;" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-            </svg>
-        </div>
-        
         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
             <span class="block text-text-primary dark:text-dark-text">Найди свою</span>
             <span class="block bg-gradient-to-r from-luna-primary via-luna-accent to-luna-primary bg-clip-text text-transparent">вторую половинку</span>
@@ -100,4 +84,4 @@
         </div>
     </div>
 </div>
-@endsection
+</x-guest-layout>
