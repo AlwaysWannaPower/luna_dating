@@ -7,13 +7,13 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
             </div>
-            <span class="text-3xl font-bold bg-gradient-to-r from-luna-primary to-luna-accent bg-clip-text text-transparent hidden sm:block">Luna</span>
+            <span class="text-3xl font-bold bg-gradient-to-r from-luna-primary to-luna-accent bg-clip-text text-transparent hidden sm:block">{{ config('app.name', 'Luna') }}</span>
         </a>
     </div>
 
     <div class="mb-6 text-center">
         <h2 class="text-2xl font-bold text-text-primary dark:text-dark-text">{{ __('Подтвердите адрес электронной почты') }}</h2>
-        <p class="text-text-secondary dark:text-dark-text-muted mt-1">{{ __('Спасибо за регистрацию! Перед тем как начать, пожалуйста, подтвердите адрес электронной почты, используя ссылку, которую мы вам отправили.') }}</p>
+        <p class="text-sm text-text-secondary dark:text-dark-text-muted mt-1">{{ __('Спасибо за регистрацию! Перед тем как начать, пожалуйста, подтвердите адрес электронной почты, используя ссылку, которую мы вам отправили.') }}</p>
     </div>
 
     <!-- Session Status -->
@@ -27,7 +27,7 @@
 
     <form method="POST" action="{{ route('verification.send') }}" class="space-y-4">
         @csrf
-        
+
         <x-primary-button class="w-full py-3 text-base">
             {{ __('Отправить повторное письмо') }}
         </x-primary-button>
@@ -36,7 +36,7 @@
     <!-- Logout Form -->
     <form method="POST" action="{{ route('logout') }}" class="mt-6">
         @csrf
-        <button type="submit" 
+        <button type="submit"
                 class="block w-full text-center text-sm text-text-secondary dark:text-dark-text-muted hover:text-luna-primary dark:hover:text-luna-accent underline underline-offset-2 transition-colors duration-200">
             {{ __('Выйти') }}
         </button>

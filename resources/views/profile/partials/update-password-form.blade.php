@@ -15,19 +15,19 @@
 
         <div>
             <x-input-label for="update_password_current_password" :value="__('Текущий пароль')" class="text-sm font-medium" />
-            <x-text-input id="update_password_current_password" name="current_password" type="password" class="mt-1 block w-full border-border dark:border-dark-border bg-bg-primary dark:bg-dark-bg-card focus:ring-luna-primary focus:border-luna-primary transition-colors duration-200" autocomplete="current-password" placeholder="Введите текущий пароль" />
+            <x-text-input id="update_password_current_password" name="current_password" type="password" class="mt-1 block w-full border-border dark:border-dark-border bg-bg-primary dark:bg-dark-bg-card text-text-primary dark:text-dark-text focus:ring-luna-primary focus:border-luna-primary py-2.5 px-4 rounded-xl transition-colors" autocomplete="current-password" placeholder="{{ __('Введите текущий пароль') }}" />
             <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
         </div>
 
         <div>
             <x-input-label for="update_password_password" :value="__('Новый пароль')" class="text-sm font-medium" />
-            <x-text-input id="update_password_password" name="password" type="password" class="mt-1 block w-full border-border dark:border-dark-border bg-bg-primary dark:bg-dark-bg-card focus:ring-luna-primary focus:border-luna-primary transition-colors duration-200" autocomplete="new-password" placeholder="Минимум 8 символов" />
+            <x-text-input id="update_password_password" name="password" type="password" class="mt-1 block w-full border-border dark:border-dark-border bg-bg-primary dark:bg-dark-bg-card text-text-primary dark:text-dark-text focus:ring-luna-primary focus:border-luna-primary py-2.5 px-4 rounded-xl transition-colors" autocomplete="new-password" placeholder="{{ __('Минимум 8 символов') }}" />
             <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2" />
         </div>
 
         <div>
             <x-input-label for="update_password_password_confirmation" :value="__('Подтвердите новый пароль')" class="text-sm font-medium" />
-            <x-text-input id="update_password_password_confirmation" name="password_confirmation" type="password" class="mt-1 block w-full border-border dark:border-dark-border bg-bg-primary dark:bg-dark-bg-card focus:ring-luna-primary focus:border-luna-primary transition-colors duration-200" autocomplete="new-password" placeholder="Повторите новый пароль" />
+            <x-text-input id="update_password_password_confirmation" name="password_confirmation" type="password" class="mt-1 block w-full border-border dark:border-dark-border bg-bg-primary dark:bg-dark-bg-card text-text-primary dark:text-dark-text focus:ring-luna-primary focus:border-luna-primary py-2.5 px-4 rounded-xl transition-colors" autocomplete="new-password" placeholder="{{ __('Повторите новый пароль') }}" />
             <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2" />
         </div>
 
